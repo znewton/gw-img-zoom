@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "name": "gw-img-zoom",
+  "alias": ["gw-img-zoom.znewton.xyz", "www.gw-img-zoom.znewton.xyz"],
+  "builds": [
+    {
+      "src": "*",
+      "use": "@now/static"
+    },
+    {
+      "src": "demo-images/*.png",
+      "use": "@now/static"
+    }
+  ]
+}

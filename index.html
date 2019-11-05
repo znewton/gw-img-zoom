@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GW Img Zoom - Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        color: #323253;
+        background: #f5f5f5;
+        line-height: 1.25em;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #img-form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #img-form label {
+        margin-bottom: 0.5rem;
+      }
+      #img-frame {
+        height: 600px;
+        width: 800px;
+        background: #fefefe;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>GW Img Zoom - Demo</h1>
+      <p>
+        Select different images to show, then hover the image area to zoom &
+        pan.
+      </p>
+      <form id="img-form"></form>
+      <div id="img-frame"></div>
+    </main>
+    <script src="./index.js" type="application/javascript"></script>
+    <script>
+      const possibleImages = [
+        './demo-images/elfo800x600-body.png',
+        './demo-images/elfo800x600-shirt.png',
+        './demo-images/elfo800x600-hat.png',
+      ];
+      let selectedImages = [];
+      const imageFrame = document.getElementById('img-frame');
+      const formElem = document.getElementById('img-form');
+      for (let i = 0; i < possibleImages.length; i++) {
+        const imageUrl = possibleImages[i];
+        const labelElem = document.createElement('label');
+        const inputElem = document.createElement('input');
+        inputElem.type = 'checkbox';
+        inputElem.onchange = function() {
+          const imgIndex = selectedImages.indexOf(imageUrl);
+          if (imgIndex < 0) {
+            selectedImages.push(imageUrl);
+          } else {
+            selectedImages.splice(imgIndex, 1);
+          }
+          gwImgZoom(imageFrame, selectedImages);
+        };
+        const labelTextElem = document.createElement('span');
+        labelTextElem.innerText = imageUrl.replace(/\.\/[^/]+\//, '');
+        labelElem.appendChild(inputElem);
+        labelElem.appendChild(labelTextElem);
+        formElem.appendChild(labelElem);
+        inputElem.onchange();
+        inputElem.checked = true;
+      }
+    </script>
+  </body>
+</html>
